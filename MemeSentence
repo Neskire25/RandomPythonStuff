@@ -1,0 +1,26 @@
+import random
+
+
+def meme_sentence(sentence):
+    new_sentence = []  # Defines an empty sentence
+    upper_count = 0  # Sets the number of upper case letters = 0
+    lower_count = 0  # Sets the number of lower case letters = 0
+    for char in sentence:   
+        case = random.choice(["UPPER", "LOWER"])
+        if case == "UPPER":
+            upper_count += 1
+            lower_count = 0
+            new_sentence.append(char.upper())
+        else:
+            lower_count += 1
+            upper_count = 0
+            new_sentence.append(char.lower())
+        if upper_count > 2 or lower_count > 2:
+            new_sentence[-1] = new_sentence[-1].swapcase()
+            upper_count = 1
+            lower_count = 1
+
+    return "".join(new_sentence)
+
+
+print(meme_sentence(input("Write a sentence to be Meme-ified:\n")))

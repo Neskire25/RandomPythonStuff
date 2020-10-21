@@ -1,0 +1,53 @@
+import praw
+import time as tm
+
+i = 0
+j = 0
+
+# First, login and client information for the bot is provided
+
+reddit = praw.Reddit(
+    client_id="",
+    client_secret="",
+    user_agent="",
+    username="",
+    password="")
+
+# Define which subreddit(s) should be searched
+
+subreddit = reddit.subreddit("Denmark+Aalborg+Aarhus+copenhagen+DanishEnts+Superligaen+Dankmark")
+# subreddit = reddit.subreddit("botTestinganton")
+
+# Define the comment the bot should post
+
+botsentence = "Det hedder Aalborg, ikke Ålborg. Niarn og Hefty er skuffet.\n" \
+              "\n \n" \
+              "*Bip-Bop, jeg er en bot. Kontakt min skaber for ris/ros: u/neskire96*"
+
+#  If ålborg is in the comment, no matter uppercase, lowercase or mixed, get the comment id...
+#  If the comment id isn't in the idlist, and the author isn't the bot...
+#  then write the comment id to the list, and post the botsentence,
+#  as well as write info about the comment... Both parent and child comments is searched
+#  With "open file", r+ is necessary for the script to read AND write to the file
+
+start_time = tm.time()
+for submission in subreddit.new(limit=200):
+    submission.comments.replace_more(limit=None)
+    for comment in submission.comments.list():
+        j += 1
+        if "AalborgBOT" != str(comment.author):
+            if "ålborg" in comment.body.lower():
+                comid = str(comment.id)
+                with open("idlist.txt", "r+") as f:
+                    if comid not in f.read():
+                        f.write(comid + "\n")
+                        print(40*".")
+                        comment.reply(botsentence)
+                        print(
+                            "Replied to: '" + comment.author.name + "' with the following comment:\n" + comment.body)
+                        i += 1
+
+time = round((tm.time() - start_time))
+print(40*".")
+print("Done!", i, "correction(s) made on", j, "comments!")
+print("Duration: %s seconds" % time)
