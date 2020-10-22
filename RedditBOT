@@ -58,5 +58,5 @@ for submission in subreddit.new(limit=n):
 
 time = round((tm.time() - start_time))
 print(40*".")
-print("Done!", i, "correction(s) made on", j, "comments!")
+print("Done!", i, "correction(s) made in", j, "comments!")
 print("Duration: %s seconds" % time)
