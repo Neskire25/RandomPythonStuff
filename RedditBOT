@@ -33,15 +33,6 @@ botsentence = "Det hedder Aalborg, ikke Ålborg. Niarn og Hefty er skuffet!\n" \
 
 start_time = tm.time()
 for submission in subreddit.new(limit=n):
-    if "ålborg" in submission.title.lower() or "ålborg" in submission.selftext.lower():
-        subid = str(submission.id)
-        with open ("idlist.txt","r+") as f:
-            if subid not in f.read():
-                fwrite(comid + "\n")
-                print(4*".")
-                submission.reply(botsentence)
-                print("Replied to: '" + submission.author + "' with the following post:\n" + submission.title)
-                i += 1   
     submission.comments.replace_more(limit=None)
     for comment in submission.comments.list():
         j += 1
@@ -55,6 +46,16 @@ for submission in subreddit.new(limit=n):
                         comment.reply(botsentence)
                         print("Replied to: '" + comment.author.name + "' with the following comment:\n" + comment.body)
                         i += 1
+    if "ålborg" in submission.title.lower() or "ålborg" in submission.selftext.lower():
+        subid = str(submission.id)
+        with open ("idlist.txt","r+") as f:
+            if subid not in f.read():
+                fwrite(comid + "\n")
+                print(4*".")
+                submission.reply(botsentence)
+                print("Replied to: '" + submission.author + "' with the following post:\n" + submission.title)
+                i += 1   
+    
 
 time = round((tm.time() - start_time))
 print(40*".")
