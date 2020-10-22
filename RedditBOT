@@ -6,12 +6,7 @@ j = 0
 
 # First, login and client information for the bot is provided
 
-reddit = praw.Reddit(
-    client_id="",
-    client_secret="",
-    user_agent="",
-    username="",
-    password="")
+reddit = praw.Reddit()
 
 # Define which subreddit(s) should be searched
 
@@ -26,14 +21,14 @@ botsentence = "Det hedder Aalborg, ikke Ålborg. Niarn og Hefty er skuffet!\n" \
 
 # List of users the bot doesn't reply to
 
-sorteliste = ["AalborgBOT", "neskire96", "myresyre"]
+blacklist = ["AalborgBOT", "neskire96", "myresyre"]
 
 start_time = tm.time()
 for submission in subreddit.new(limit=500):  # Get the newest x submissions across the chosen subreddit(s)
     submission.comments.replace_more(limit=None)  # Get comments on all leves
     for comment in submission.comments.list():
         j += 1
-        if str(comment.author) not in sorteliste:  # List of users the bot shouldn't reply
+        if str(comment.author) not in blacklist:  # List of users the bot shouldn't reply
             if "ålborg" in comment.body.lower():
                 comid = str(comment.id)
                 with open("idlist.txt", "r+") as f:  # r+ is necessary for the script to read AND write to the txt file
@@ -54,6 +49,6 @@ for submission in subreddit.new(limit=500):  # Get the newest x submissions acro
                 i += 1
 
 time = round((tm.time() - start_time))
-print(50 * ".")
-print("Done!", i, "correction(s) made in", j, "comments!")
-print("Duration: %s seconds" % time)
+
+print("\nDone! Search duration: %s seconds""" % time)
+print(i, "corrections(s) made in", j, "comments!")
