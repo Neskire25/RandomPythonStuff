@@ -56,7 +56,6 @@ for submission in subreddit.new(limit=n):
                 print("Replied to: '" + submission.author + "' with the following post:\n" + submission.title)
                 i += 1   
     
-
 time = round((tm.time() - start_time))
 print(40*".")
 print("Done!", i, "correction(s) made in", j, "comments!")
