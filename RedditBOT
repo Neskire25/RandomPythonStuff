@@ -21,7 +21,7 @@ subreddit = reddit.subreddit("Denmark+Aalborg+Aarhus+copenhagen+DanishEnts+Super
 
 # Define the comment the bot should post
 
-botsentence = "Det hedder Aalborg, ikke Ålborg. Niarn og Hefty er skuffet.\n" \
+botsentence = "Det hedder Aalborg, ikke Ålborg. Niarn og Hefty er skuffet!\n" \
               "\n \n" \
               "*Bip-Bop, jeg er en bot. Kontakt min skaber for ris/ros: u/neskire96*"
 
