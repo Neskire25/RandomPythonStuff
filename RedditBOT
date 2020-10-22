@@ -21,7 +21,7 @@ botsentence = "Det hedder Aalborg, ikke Ålborg. Niarn og Hefty er skuffet!\n" \
 
 # List of users the bot doesn't reply to
 
-blacklist = ["AalborgBOT", "neskire96", "myresyre"]
+blacklist = []
 
 start_time = tm.time()
 for submission in subreddit.new(limit=500):  # Get the newest x submissions across the chosen subreddit(s)
