@@ -1,54 +1,48 @@
 import praw
-import time as tm
-
-i = 0
-j = 0
 
 # First, login and client information for the bot is provided
 
-reddit = praw.Reddit()
+reddit = praw.Reddit(
+    client_id="",
+    client_secret="",
+    user_agent="",
+    username="",
+    password="")
 
 # Define which subreddit(s) should be searched
 
-subreddit = reddit.subreddit("Denmark+Aalborg+Aarhus+copenhagen+DanishEnts+Superligaen+Dankmark")
-# subreddit = reddit.subreddit("botTestinganton")
+# subreddit = reddit.subreddit("Aalborg+Aarhus+copenhagen+DanishEnts+Superligaen+Dankmark")
+subreddit = reddit.subreddit("botTestinganton")
 
 # Define the comment the bot should post
 
 botsentence = "Det hedder Aalborg, ikke Ålborg. Niarn og Hefty er skuffet!\n" \
               "\n \n" \
-              "*Bip-Bop, jeg er en bot. Kontakt min skaber for ris/ros: u/neskire96*"
+              "*Bip-Bop, jeg er en bot ... Min skaber er r/neskire96*"
 
 # List of users the bot doesn't reply to
 
-blacklist = []
+blacklist = ["AalborgBOT"]
 
-start_time = tm.time()
-for submission in subreddit.new(limit=500):  # Get the newest x submissions across the chosen subreddit(s)
-    submission.comments.replace_more(limit=None)  # Get comments on all leves
-    for comment in submission.comments.list():
-        j += 1
-        if str(comment.author) not in blacklist:  # List of users the bot shouldn't reply
-            if "ålborg" in comment.body.lower():
-                comid = str(comment.id)
-                with open("idlist.txt", "r+") as f:  # r+ is necessary for the script to read AND write to the txt file
-                    if comid not in f.read():
-                        f.write(comid + "\n")
-                        print(50 * ".")
-                        comment.reply(botsentence)
-                        print("Replied to '" + comment.author.name + "' with the following comment:\n" + comment.body)
-                        i += 1
-    if "ålborg" in submission.title.lower() or "ålborg" in submission.selftext.lower():
-        subid = str(submission.id)
-        with open("idlist.txt", "r+") as f:
-            if subid not in f.read():
-                f.write(subid + "\n")
-                print(50 * ".")
-                submission.reply(botsentence)
-                print("Replied to '" + str(submission.author) + "' with the following post:\n" + submission.title)
-                i += 1
-
-time = round((tm.time() - start_time))
-
-print("\nDone! Search duration: %s seconds""" % time)
-print(i, "corrections(s) made in", j, "comments!")
+while True:
+    for submission in subreddit.new(limit=500):  # Get the newest x submissions across the chosen subreddit(s)
+        submission.comments.replace_more(limit=None)  # Get comments on all leves
+        if "ålborg" in submission.title.lower() or "ålborg" in submission.selftext.lower():
+            subid = str(submission.id)
+            with open("idlist.txt", "r+") as f:
+                if subid not in f.read():
+                    f.write(subid + "\n")
+                    print(50 * ".")
+                    submission.reply(botsentence)
+                    print("Replied to '" + str(submission.author) + "' with the post:\n" + submission.title + "\n" + submission.selftext)
+        for comment in submission.comments.list():
+            if str(comment.author) not in blacklist:  # Makes sure the bot doesn't reply to "blacklist" users
+                if "ålborg" in comment.body.lower():
+                    comid = str(comment.id)
+                    with open("idlist.txt",
+                              "r+") as f:  # r+ is necessary for the script to read & write to txt file
+                        if comid not in f.read():
+                            f.write(comid + "\n")
+                            print(50 * ".")
+                            comment.reply(botsentence)
+                            print("Replied to '" + comment.author.name + "' with the comment:\n" + comment.body)
