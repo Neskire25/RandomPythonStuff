@@ -1,17 +1,22 @@
-year = int(input("Enter a year:"))
-
-
 def leapyear(year):
     if year % 4 == 0:
         if year % 100 == 0:
             if year % 400 == 0:
-                print("Yes")
+                print("Yes, %d is a leap year!" % year)
             else:
-                print("No")
+                print("No, %d is not a leap year..." % year)
         else:
-            print("Yes")
+            print("Yes, %d is a leap year!" % year)
     else:
-        print("No")
+        print("No, %s is not a leap year..." % year)
 
 
-leapyear(year)
+try:
+    year = int(input("Enter a year: "))
+    if year < 1:
+        print("Please enter a year after year 0!")
+        exit()
+    leapyear(year)
+except ValueError:
+    print("Please enter a real year!")
+    exit()
