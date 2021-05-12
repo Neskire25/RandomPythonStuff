@@ -1,9 +1,9 @@
-
 import datetime as dt
 import random as rd
 import sys
 import time as tm
 import tkinter as tk
+import webbrowser
 
 # Following 3 lines makes sure the code "begins"
 print("Hello!")
@@ -12,6 +12,7 @@ ans = "y"
 while ans == "y" or ans == "Y":
 
     roll_list = []  # Creates an empty list, to fill up with number of rolls needed
+
 
     def roll_amount():  # Defining a function, to get an input regarding number of rolls
         no = input("How many times do you want to roll 6 sixes?\n")
@@ -23,6 +24,7 @@ while ans == "y" or ans == "Y":
             else:
                 print("The input has to be a positive integer.")
                 return roll_amount()
+
         except ValueError:  # A ValueError occur, if the input is not an integer, and the function restarts
             print("The input has to be an integer.")
             return roll_amount()
@@ -72,18 +74,22 @@ while ans == "y" or ans == "Y":
                                 "Average amount of rolls neded: %s\n"
                                 "That is %s times the exptected amount" % (time, n, sum(roll_list), avg, ratio))
 
-    label.pack(side="top", fill="both", expand=True, padx=10, pady=10)
+    def retrybutton():
+        root.destroy()
 
-    button = tk.Button(root, text="OK!", command=lambda: root.destroy())
-    button.pack(side="left", fill="none", expand=True)
+    def exitbutton():
+        root.destroy()
+        sys.exit()
+
+    def resultsbutton():
+        webbrowser.open("diceroller_results.txt")
+
+    label.pack(side="top", fill="both", expand=True, padx=10, pady=10)
+    button1 = tk.Button(root, text="Retry", command=retrybutton)
+    button1.pack(side="left", fill="none", expand=True)
+    button2 = tk.Button(root, text="Exit", command=exitbutton)
+    button2.pack(side="right", fill="none", expand=True)
+    button3 = tk.Button(root, text="Results", command=resultsbutton)
+    button3.pack(fill="none", expand=True)
 
     root.mainloop()
-
-    # Following lines asks the user if they want to try again, if no, the code stops
-    ans = input("\nTry again? Y/N\n")
-    while ans not in ("Y", "y", "n", "N"):
-        print("Not a valid answer.")
-        ans = input("\nTry again? Y/N\n")
-    if ans == "n" or ans == "N":
-        print("\nGoodbye!")
-        sys.exit()
