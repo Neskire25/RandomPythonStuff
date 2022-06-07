@@ -1,0 +1,19 @@
+i=0
+k=2
+
+def primtal(n):
+    for j in range(2,n):
+        if (n%j)==0:
+            return False
+    return True
+
+while i != 10001:
+    check=primtal(k)
+    if check:
+        #print(k)
+        k+=1
+        i+=1
+    else:
+        k+=1
+
+print(k-1)
