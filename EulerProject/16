@@ -1,0 +1,8 @@
+num=str(pow(2,1000))
+x=0
+
+for ciffer in num:
+    x+=int(ciffer)
+    
+print(x)
+    
