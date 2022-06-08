@@ -1,0 +1,23 @@
+count = 0
+res = 2520
+finish = False
+
+while finish != True:
+  res+=2520
+  count = 0
+  for x in range(11, 21):
+    if res % x == 0:
+        count+=1
+        if count == 10:
+            finish = True
+print(res)
+
+"""
+Forklaring:
+1. Vi får givet det mindste tal, tallene 1-10 går op i, er 2520
+2. Det giver os at minimumsværdien er 2520, og at vi kan øge gættet med 2520 hver gang
+3. Vi kører et whileloop, som kører indtil at et parameter er True/Sandt
+4. Dette parameter er sandt, når vi her "talt til 10" med vores count
+5. Vi starter med at tælle fra 10+1=11, og tæller altså 10 gange, eller til vi rammer 20
+6. Når vi så har talt til 10, bliver parametret sandt, og vi kan spytte resultatet ud
+"""
