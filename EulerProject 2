@@ -1,0 +1,20 @@
+fib=[1,2]
+ligefib=[]
+i=1
+fibo=2
+while fibo < 4000000:
+    fibo=fib[i]+fib[i-1]
+    fib.append(fibo)
+    i+=1
+    
+fib.pop()
+
+print(fib)
+
+for num in fib:
+    if num % 2 == 0:
+        ligefib.append(num)
+
+print(ligefib)
+
+print(sum(ligefib))
