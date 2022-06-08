@@ -1,0 +1,12 @@
+sumsq=0
+sqsum=0
+n=0
+
+for i in range(1,101):
+    sumsq+=i*i
+    
+for i in range(1,101):
+   n+=i
+   sqsum=n*n
+
+print(sqsum-sumsq)
